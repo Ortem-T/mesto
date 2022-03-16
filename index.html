@@ -74,5 +74,21 @@
   <footer class="footer">
     <p class="footer__author">&copy; 2022 Тарасов Артем</p>
   </footer>
+
+  <div class="popup popup_opened">
+    <div class="popup__container">
+      <button class="popup__close" type="button">Закрыть</button>
+      <form class="form" method="post" name="profile-edit">
+        <h2 class="form__title">Редактировать профиль</h2>
+        <div class="form__field">
+          <input class="form__input" type="text" value="Жак-Ив Кусто" placeholder="Имя" name="profile-name" id="profile-name" minlength="2" maxlength="40" required>
+        </div>
+        <div class="form__field">
+          <input class="form__input" type="text" value="Исследователь океана" placeholder="О себе"  name="profile-about-me" id="profile-about-me" minlength="2" maxlength="100" required>
+        </div>
+        <button class="form__save" type="submit" >Сохранить</button>
+      </form>
+    </div>
+  </div>
 </body>  
 </html>
