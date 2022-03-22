@@ -3,14 +3,16 @@ const popupElement = document.querySelector('.popup');
 const closeButton = popupElement.querySelector('.popup__close');
 const ESC_KEY = "Escape";
 const formElement = document.querySelector('.form');
-const nameInput = formElement.querySelector('.form__input_name');
-const aboutMeInput = formElement.querySelector('.form__input_about-me');
+const nameInput = formElement.querySelector('.form__input_type_name');
+const aboutMeInput = formElement.querySelector('.form__input_type_about-me');
 const profileName = document.querySelector('.profile__name');
 const profileAboutMe = document.querySelector('.profile__about-me'); 
 
 function openPopup() {
     popupElement.classList.add('popup_opened');
     document.addEventListener('keyup', onDocumentKeyUp)
+    nameInput.value = profileName.textContent;
+    aboutMeInput.value = profileAboutMe.textContent;
 }
 
 function closePopup() {
@@ -30,7 +32,7 @@ editButton.addEventListener('click', (event) => {
 
 closeButton.addEventListener('click', closePopup)
 
-function formSubmitHandler (evt) {
+function handleProfileFormSubmit (evt) {
     evt.preventDefault();
 
     profileName.textContent = nameInput.value;
@@ -39,4 +41,4 @@ function formSubmitHandler (evt) {
 
 }
 
-formElement.addEventListener('submit', formSubmitHandler);
+formElement.addEventListener('submit', handleProfileFormSubmit);

@@ -5,11 +5,16 @@
   line-height: 1.22;
   font-weight: 400;
   color: #fff;
+  max-width: 500px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media (max-width: 900px) {
   .profile__about-me {
     font-size: 14px;
     text-align: center;
+    max-width: 200px;
   }
 }
