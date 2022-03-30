@@ -30,3 +30,5 @@
 @import url(../blocks/form/__field/form__field.css);
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__save/form__save.css);
+@import url(../blocks/popup/_type/_img/popup_type_img.css);
+@import url(../blocks/popup/_type/_profile/popup_type_profile.css);

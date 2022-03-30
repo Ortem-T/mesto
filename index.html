@@ -75,7 +75,7 @@
     <p class="footer__author">&copy; 2022 Тарасов Артем</p>
   </footer>
 
-  <div class="popup">
+  <div class="popup popup_type_profile">
     <div class="popup__container">
       <button class="popup__close" type="button">Закрыть</button>
       <form class="popup__form form" method="post" name="profile-edit">
@@ -90,6 +90,33 @@
       </form>
     </div>
   </div>
+
+  <div class="popup popup_type_img">
+    <div class="popup__container">
+      <button class="popup__close" type="button">Закрыть</button>
+      <form class="popup__form form" method="post" name="add-img">
+        <h2 class="form__title">Новое место</h2>
+        <div class="form__field">
+          <input class="form__input form__input_type_title-img" type="text" placeholder="Название" name="profile-title-img" id="profile-title-img" minlength="2" maxlength="40" required>
+        </div>
+        <div class="form__field">
+          <input class="form__input form__input_type_img" type="url" placeholder="Ссылка на картинку"  name="profile-img" id="profile-img" minlength="2" maxlength="100" required>
+        </div>
+        <button class="form__save" type="submit">Создать</button>
+      </form>
+    </div>
+  </div>
+
+  <template class="elements__template">
+    <li class="elements__item">
+      <button class="elements__del-button" type="button">Удалить</button>
+      <img class="elements__photo" src="" alt="">
+      <div class="elements__text">
+        <h2 class="elements__title"></h2>
+        <button class="elements__like-button" type="button"></button>
+      </div>
+    </li>
+  </template>
 
   <script src="./scripts/index.js"></script>
 </body>  
