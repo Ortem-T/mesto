@@ -26,48 +26,7 @@
     </section>
     <section class="elements">
       <ul class="elements__list">
-        <li class="elements__item">
-          <img class="elements__photo" src="./images/podolsk.jpg" alt="Фото церкви">
-          <div class="elements__text">
-            <h2 class="elements__title">Подольск</h2>
-            <button class="elements__like-button" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item">
-          <img class="elements__photo" src="./images/ruskeala.jpg" alt="Фото горного озера">
-          <div class="elements__text">
-            <h2 class="elements__title">Рускеала</h2>
-            <button class="elements__like-button" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item">
-          <img class="elements__photo" src="./images/gusinoozersk.jpg" alt="Буддийская Ступа">
-          <div class="elements__text">
-            <h2 class="elements__title">Гусиноозерск</h2>
-            <button class="elements__like-button" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item">
-          <img class="elements__photo" src="./images/yuzhno-sakhalinsk.jpg" alt="Фото Сахалинских гор">
-          <div class="elements__text">
-            <h2 class="elements__title">Южно-Сахалинск</h2>
-            <button class="elements__like-button" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item">
-          <img class="elements__photo" src="./images/solnechnodolsk.jpg" alt="Картина на многоэтажном доме">
-          <div class="elements__text">
-            <h2 class="elements__title">Солнечнодольск</h2>
-            <button class="elements__like-button" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item">
-          <img class="elements__photo" src="./images/tver.jpg" alt="Фото реки Волга">
-          <div class="elements__text">
-            <h2 class="elements__title">Тверь</h2>
-            <button class="elements__like-button" type="button"></button>
-          </div>
-        </li>
+        
       </ul>
     </section>
   </main>
@@ -94,20 +53,28 @@
   <div class="popup popup_type_img">
     <div class="popup__container">
       <button class="popup__close" type="button">Закрыть</button>
-      <form class="popup__form form" method="post" name="add-img">
+      <form class="popup__form form" method="post" name="add-img" id="form-img">
         <h2 class="form__title">Новое место</h2>
         <div class="form__field">
           <input class="form__input form__input_type_title-img" type="text" placeholder="Название" name="profile-title-img" id="profile-title-img" minlength="2" maxlength="40" required>
         </div>
         <div class="form__field">
-          <input class="form__input form__input_type_img" type="url" placeholder="Ссылка на картинку"  name="profile-img" id="profile-img" minlength="2" maxlength="100" required>
+          <input class="form__input form__input_type_img" type="text" placeholder="Ссылка на картинку"  name="profile-img" id="profile-img" minlength="2" maxlength="100" required>
         </div>
         <button class="form__save" type="submit">Создать</button>
       </form>
     </div>
   </div>
 
-  <template class="elements__template">
+  <div class="popup popup_type_img-open">
+    <div class="popup__container">
+      <button class="popup__close" type="button">Закрыть</button>
+      <img class="popup__photo" alt="" src="./images/logo.svg">
+      <h2 class="popup__photo-caption"></h2>
+    </div>
+  </div>
+
+  <template class="elements__template" id="item-template">
     <li class="elements__item">
       <button class="elements__del-button" type="button">Удалить</button>
       <img class="elements__photo" src="" alt="">
