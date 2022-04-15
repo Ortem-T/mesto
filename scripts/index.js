@@ -85,9 +85,15 @@ generateCards();
 
 function openPopup(popupElement) {
     popupElement.classList.add('popup_opened');
-    document.addEventListener('keyup', onDocumentKeyUp)
+    document.addEventListener('keyup', onDocumentKeyUp);
     currentPopup = popupElement;
 }
+
+document.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('popup')) {
+        closePopup(evt.target);
+    }
+  });
 
 function editProfile() {
     openPopup(popupProfile)
@@ -136,6 +142,8 @@ function handleAddPhotoFormSubmit (evt) {
     formImg.reset();
     closePopup();
 }
+
+
 
 formElement.addEventListener('submit', handleProfileFormSubmit);
 formImg.addEventListener('submit', handleAddPhotoFormSubmit);
