@@ -37,13 +37,15 @@
   <div class="popup popup_type_profile">
     <div class="popup__container">
       <button class="popup__close" type="button">Закрыть</button>
-      <form class="popup__form form" method="post" name="profile-edit">
+      <form class="popup__form form" method="post" name="profile-edit" id="form-profile" novalidate>
         <h2 class="form__title">Редактировать профиль</h2>
         <div class="form__field">
           <input class="form__input form__input_type_name" type="text" placeholder="Имя" name="profile-name" id="profile-name" minlength="2" maxlength="40" required>
+          <span id="profile-name-error" class="error"></span>
         </div>
         <div class="form__field">
-          <input class="form__input form__input_type_about-me" type="text" placeholder="О себе"  name="profile-about-me" id="profile-about-me" minlength="2" maxlength="100" required>
+          <input class="form__input form__input_type_about-me" type="text" placeholder="О себе"  name="profile-about-me" id="profile-about-me" minlength="2" maxlength="200" required>
+          <span id="profile-about-me-error" class="error"></span>
         </div>
         <button class="form__save" type="submit">Сохранить</button>
       </form>
@@ -53,13 +55,15 @@
   <div class="popup popup_type_img">
     <div class="popup__container">
       <button class="popup__close" type="button">Закрыть</button>
-      <form class="popup__form form" method="post" name="add-img" id="form-img">
+      <form class="popup__form form" method="post" name="add-card" id="form-card" novalidate>
         <h2 class="form__title">Новое место</h2>
         <div class="form__field">
-          <input class="form__input form__input_type_title-img" type="text" placeholder="Название" name="profile-title-img" id="profile-title-img" minlength="2" maxlength="40" required>
+          <input class="form__input form__input_type_title-img" type="text" placeholder="Название" name="card-title-img" id="card-title-img" minlength="2" maxlength="30" required>
+          <span id="card-title-img-error" class="error"></span>
         </div>
         <div class="form__field">
-          <input class="form__input form__input_type_img" type="text" placeholder="Ссылка на картинку"  name="profile-img" id="profile-img" minlength="2" maxlength="100" required>
+          <input class="form__input form__input_type_img" type="url" placeholder="Ссылка на картинку"  name="card-img" id="card-img" required>
+          <span id="card-img-error" class="error"></span>
         </div>
         <button class="form__save" type="submit">Создать</button>
       </form>
@@ -86,5 +90,6 @@
   </template>
 
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>  
 </html>
