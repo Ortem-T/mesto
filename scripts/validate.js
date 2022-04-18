@@ -1,81 +1,74 @@
-const editProfileForm = document.querySelector('#form-profile');
-const addCardForm = document.querySelector('#form-card');
-
-const ERRORS = {
-  wrongUrl: 'Введите адрес сайта',
-  empty: 'Вы пропустили это поле',
+// Функция, которая добавляет класс с ошибкой
+const showInputError = (formElement, inputElement, errorMessage, inputErrorClass, errorClass) => {
+  const formError = formElement.querySelector(`#${inputElement.id}-error`);
+  inputElement.classList.add(inputErrorClass);
+  formError.textContent = errorMessage;
+  formError.classList.add(errorClass);
 };
 
-const checkInputValidity = (input) => {
-  input.setCustomValidity('');
+// Функция, которая удаляет класс с ошибкой
+const hideInputError = (formElement, inputElement, inputErrorClass, errorClass) => {
+  const formError = formElement.querySelector(`#${inputElement.id}-error`);
+  inputElement.classList.remove(inputErrorClass);
+  formError.classList.remove(errorClass);
+  formError.textContent = '';
+};
 
-  if (input.validity.valueMissing) {
-    input.setCustomValidity(ERRORS.empty);
-    return false;
+// Функция, которая проверяет валидность поля
+const isValid = (formElement, inputElement, inputErrorClass, errorClass) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage, inputErrorClass, errorClass);
+  } else {
+    hideInputError(formElement, inputElement, inputErrorClass, errorClass);
   }
+};
 
-  const maxLangthValue = input.getAttribute('maxlength');
-
-  if (input.validity.tooLong || input.validity.tooShort) {
-    input.setCustomValidity(`Введите значение от 2 до ${maxLangthValue} символов`);
-    return false;
-  }
-
-  if (input.validity.typeMismatch && input.type === "url") {
-    input.setCustomValidity(ERRORS.wrongUrl);
-    return false;
-  }
-
-  return input.checkValidity();
-}
-
-const validateInput = (input) => {
-  const formError = input.parentNode.querySelector(`#${input.id}-error`);
-  checkInputValidity(input);
-  formError.textContent = input.validationMessage;
+const setEventListeners = (formElement, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass) => {
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+  const buttonElement = formElement.querySelector(submitButtonSelector);
+  toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      isValid(formElement, inputElement, inputErrorClass, errorClass);
+      toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+    });
+  });
 }; 
 
-const setButtonState = (button, isValid) => {
-  if (isValid) {
-    button.disabled = false;
-    button.classList.remove('form__save_invalid');
+const enableValidation = ({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}) => {
+  const formList = Array.from(document.querySelectorAll(formSelector));
+
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+
+    setEventListeners(formElement, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass);
+  });
+};
+
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+
+    return !inputElement.validity.valid;
+  })
+}; 
+
+const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add(inactiveButtonClass);
+    buttonElement.disabled = true;
   } else {
-    button.disabled = true;
-    button.classList.add('form__save_invalid');
+    buttonElement.classList.remove(inactiveButtonClass);
+    buttonElement.disabled = false;
   }
-}
+}; 
 
-const validateBorder = (input, isValid) => {
-  if (isValid) {
-    input.classList.remove('form__input_invalid');
-  } else {
-    input.classList.add('form__input_invalid');
-  } 
-}
-
-const handleInput = (evt) => {
-  const currentForm = evt.currentTarget;
-  const input = evt.target;
-  const submitButton = currentForm.querySelector('.form__save');
-
-  validateInput(input);
-
-  validateBorder(input, currentForm.checkValidity());
-
-  setButtonState(submitButton, currentForm.checkValidity());
-} 
-
-const handleSubmit = (evt) => {
-    evt.preventDefault();
-
-    const currentForm = evt.target;
-    if (currentForm.checkValidity()) {
-      currentForm.reset();
-    } 
- };
-
-editProfileForm.addEventListener('submit', handleSubmit);
-addCardForm.addEventListener('submit', handleSubmit);
-
-editProfileForm.addEventListener('input', handleInput);
-addCardForm.addEventListener('input', handleInput);
+enableValidation({
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__save',
+  inactiveButtonClass: 'form__save_invalid',
+  inputErrorClass: 'form__input_invalid',
+  errorClass: 'error__active'
+}); 
