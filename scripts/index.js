@@ -99,10 +99,10 @@ function editProfile() {
 }
 
 function onDocumentKeyUp(event){
-    const activePopup = document.querySelector('.popup_opened')
     if (event.key === ESC_KEY) {
-        
+        const activePopup = document.querySelector('.popup_opened')
         closePopup(activePopup);
+        formImg.reset();
     }
 }
 
@@ -116,17 +116,15 @@ profileButton.addEventListener('click', (event) => {
 });
 
 photoAddButton.addEventListener('click', (event) => {
-    openPopup(popupImg)
+    openPopup(popupImg);
 });
 
 const popupList = Array.from(document.querySelectorAll('.popup'));
 popupList.forEach( (popup) => {
     popup.addEventListener('click', (event) => {
-      if (event.target.classList.contains('popup_opened')){
+      if (event.target.classList.contains('popup_opened') || event.target.classList.contains('popup__close')){
         closePopup(popup);
-      };
-      if (event.target.classList.contains('popup__close')){
-        closePopup(popup);
+        formImg.reset();
       };
     });
   });
