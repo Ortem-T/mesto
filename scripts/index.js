@@ -102,7 +102,6 @@ function onDocumentKeyUp(event){
     if (event.key === ESC_KEY) {
         const activePopup = document.querySelector('.popup_opened')
         closePopup(activePopup);
-        formImg.reset();
     }
 }
 
@@ -124,7 +123,6 @@ popupList.forEach( (popup) => {
     popup.addEventListener('click', (event) => {
       if (event.target.classList.contains('popup_opened') || event.target.classList.contains('popup__close')){
         closePopup(popup);
-        formImg.reset();
       };
     });
   });
