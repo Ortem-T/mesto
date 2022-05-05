@@ -15,6 +15,7 @@ const popupProfile = document.querySelector('.popup_type_profile');
 const popupImg = document.querySelector('.popup_type_img');
 const photoContainer = document.querySelector('.elements__list');
 const formImg = document.querySelector('#form-card');
+const formEdit = document.querySelector('#form-profile');
 
 const initialCards = [
     {
@@ -52,15 +53,19 @@ const validationSettings = {
   errorClass: 'error__active'
 };
 
-const validationPopup = new FormValidator(validationSettings, form);
-validationPopup.enableValidation();
+const validationPopupImg = new FormValidator(validationSettings, formImg);
+const validationPopupEdit = new FormValidator(validationSettings, formEdit);
+validationPopupImg.enableValidation();
+validationPopupEdit.enableValidation();
 
+function createCard(card) {
+  return new Card ({...card, openPopup: openPopup}, '#item-template').creationCard();
+}
 
 function generateCards() {
     photoContainer.innerHTML = '';
     initialCards.forEach((item) => {
-        const cardElement = new Card ({...item, openPopup: openPopup}, '#item-template');
-        photoContainer.append(cardElement.creationCard());
+        photoContainer.append(createCard(item));
     });
 }
 
@@ -117,8 +122,8 @@ function handleProfileFormSubmit (evt) {
 function handleAddPhotoFormSubmit (evt) {
     evt.preventDefault();
  
-    const newCard = new Card({name: imgTitle.value, link: imgLink.value, openPopup: openPopup}, '#item-template');
-    photoContainer.prepend(newCard.creationCard());
+    const newCard = {name: imgTitle.value, link: imgLink.value};
+    photoContainer.prepend(createCard(newCard));
     closePopup(popupImg);
     formImg.reset();
 }
