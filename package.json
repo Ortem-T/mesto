@@ -1,0 +1,19 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "![](./images/ruskeala.jpg)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ortem-T/mesto.git"
+  },
+  "author": "Artem Tarasov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ortem-T/mesto/issues"
+  },
+  "homepage": "https://github.com/Ortem-T/mesto#readme"
+}
