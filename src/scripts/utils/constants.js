@@ -1,27 +1,34 @@
+const podolsk = new URL('../../images/podolsk.jpg', import.meta.url);
+const ruskealla = new URL('../../images/ruskeala.jpg', import.meta.url);
+const gusinoozersk = new URL('../../images/gusinoozersk.jpg', import.meta.url);
+const sahalin = new URL('../../images/yuzhno-sakhalinsk.jpg', import.meta.url);
+const solnechnodolsk = new URL('../../images/solnechnodolsk.jpg', import.meta.url);
+const tver = new URL('../../images/tver.jpg', import.meta.url);
+
 export const initialCards = [
     {
       name: 'Подольск',
-      link: './images/podolsk.jpg'
+      link: podolsk
     },
     {
       name: 'Рускеала',
-      link: './images/ruskeala.jpg'
+      link: ruskealla
     },
     {
       name: 'Гусиноозерск',
-      link: './images/gusinoozersk.jpg'
+      link: gusinoozersk
     },
     {
       name: 'Южно-Сахалинск',
-      link: './images/yuzhno-sakhalinsk.jpg'
+      link: sahalin
     },
     {
       name: 'Солнечнодольск',
-      link: './images/solnechnodolsk.jpg'
+      link: solnechnodolsk
     },
     {
       name: 'Тверь',
-      link: './images/tver.jpg'
+      link: tver
     }
 ];
 
