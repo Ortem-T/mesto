@@ -57,11 +57,11 @@
       <form class="popup__form form" method="post" name="add-card" id="form-card" novalidate>
         <h2 class="form__title">Новое место</h2>
         <div class="form__field">
-          <input class="form__input form__input_type_title-img" type="text" placeholder="Название" name="card-title-img" id="card-title-img" minlength="2" maxlength="30" required>
+          <input class="form__input form__input_type_title-img" type="text" placeholder="Название" name="cardTitleImg" id="card-title-img" minlength="2" maxlength="30" required>
           <span id="card-title-img-error" class="error"></span>
         </div>
         <div class="form__field">
-          <input class="form__input form__input_type_img" type="url" placeholder="Ссылка на картинку"  name="card-img" id="card-img" required>
+          <input class="form__input form__input_type_img" type="url" placeholder="Ссылка на картинку"  name="cardImg" id="card-img" required>
           <span id="card-img-error" class="error"></span>
         </div>
         <button class="form__save" type="submit">Создать</button>
@@ -72,7 +72,7 @@
   <div class="popup popup_type_img-open">
     <div class="popup__container">
       <button class="popup__close" type="button">Закрыть</button>
-      <img class="popup__photo" alt="" src="./images/logo.svg">
+      <img class="popup__photo" alt="" src="">
       <h2 class="popup__photo-caption"></h2>
     </div>
   </div>
@@ -80,7 +80,7 @@
   <template class="elements__template" id="item-template">
     <li class="elements__item">
       <button class="elements__del-button" type="button">Удалить</button>
-      <img class="elements__photo" src="./images/logo.svg" alt="">
+      <img class="elements__photo" src="" alt="">
       <div class="elements__text">
         <h2 class="elements__title"></h2>
         <button class="elements__like-button" type="button"></button>

@@ -13,6 +13,7 @@ export default class Card {
   
     _handleDelCard() {
       this._card.remove();
+      this._card = null;
     }
   
     _handleLikeCard() {
@@ -20,8 +21,8 @@ export default class Card {
     }
   
     _setEventListeners() {
-      this._card.querySelector('.elements__del-button').addEventListener('click', () => this._handleDelCard(this._card));
-      this._card.querySelector('.elements__like-button').addEventListener('click', () => this._handleLikeCard(this._card));
+      this._card.querySelector('.elements__del-button').addEventListener('click', () => this._handleDelCard());
+      this._card.querySelector('.elements__like-button').addEventListener('click', () => this._handleLikeCard());
       this._card.querySelector('.elements__photo').addEventListener('click', () => this._handleCardClick());
     }
   

@@ -10,11 +10,10 @@ import UserInfo from "../scripts/components/UserInfo.js";
 import { initialCards, validationSettings } from "../scripts/utils/constants.js";
 const profileButton = document.querySelector('.profile__edit-button');
 const photoAddButton = document.querySelector('.profile__add-button');
-const imgTitle = document.querySelector('#card-title-img');
-const imgLink = document.querySelector('#card-img');
-const photoContainer = document.querySelector('.elements__list');
 const formImg = document.querySelector('#form-card');
 const formEdit = document.querySelector('#form-profile');
+const nameInput = document.querySelector('.form__input_type_name');
+const aboutMeInput = document.querySelector('.form__input_type_about-me');
 
 const validationPopupImg = new FormValidator(validationSettings, formImg);
 const validationPopupEdit = new FormValidator(validationSettings, formEdit);
@@ -32,7 +31,7 @@ function createCard(card) {
 const section = new Section ({
   items: initialCards,
   renderer: (item) => {
-    photoContainer.append(createCard(item));
+    section.addItemContainer(createCard(item));
   }
 }, '.elements__list' 
 )
@@ -52,13 +51,16 @@ const profileForm = new PopupWithForm ('.popup_type_profile',
 profileForm.setEventListeners();
 
 function editProfile() {
-    createUserInfo.getUserInfo();
+    const userInfo = createUserInfo.getUserInfo();
+    nameInput.value = userInfo.name;
+    aboutMeInput.value = userInfo.aboutMe;
     profileForm.open();
+    validationPopupEdit.resetErrors();
 }
 
 const addPhotoForm = new PopupWithForm ('.popup_type_img',
-    () => {
-      const newCard = {name: imgTitle.value, link: imgLink.value};
+    (inputValues) => {
+      const newCard = {name: inputValues.cardTitleImg, link: inputValues.cardImg};
       section.addItem(createCard(newCard));
       addPhotoForm.closeForm() 
   })
@@ -70,4 +72,5 @@ profileButton.addEventListener('click', () => {
 
 photoAddButton.addEventListener('click', () => {
     addPhotoForm.open();
+    validationPopupImg.resetErrors();
 });
