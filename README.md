@@ -1,7 +1,7 @@
 # Проект: Место
 
 
-![](./images/ruskeala.jpg)
+![](./src/images/podolsk.jpg)
 
 ## О проекте
 
