@@ -12,6 +12,9 @@ import Api from '../scripts/components/Api';
 import { validationSettings } from "../scripts/utils/constants.js";
 const profileButton = document.querySelector('.profile__edit-button');
 const photoAddButton = document.querySelector('.profile__add-button');
+const imgTitle = document.querySelector('#card-title-img');
+const imgLink = document.querySelector('#card-img');
+const photoContainer = document.querySelector('.elements__list');
 const formImg = document.querySelector('#form-card');
 const formEdit = document.querySelector('#form-profile');
 const formAvatar = document.querySelector('#form-avatar')
@@ -120,11 +123,8 @@ const profileForm = new PopupWithForm ('.popup_type_profile',
 profileForm.setEventListeners();
 
 function editProfile() {
-    const userInfo = createUserInfo.getUserInfo();
-    nameInput.value = userInfo.name;
-    aboutMeInput.value = userInfo.aboutMe;
-    profileForm.open();
-    validationPopupEdit.resetErrors();
+  createUserInfo.getUserInfo();
+  profileForm.open();
 }
 
 const profileAvatar = new PopupWithForm ('.popup_type_avatar', 
@@ -162,5 +162,4 @@ profileButton.addEventListener('click', () => {
 
 photoAddButton.addEventListener('click', () => {
     addPhotoForm.open();
-    validationPopupImg.resetErrors();
 });
