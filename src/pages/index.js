@@ -119,6 +119,9 @@ const profileForm = new PopupWithForm ('.popup_type_profile',
           profileForm.close();
           profileForm.loading(false);
         })
+        .finally(() => {
+          profileForm.loading(false);
+        });
     });
 profileForm.setEventListeners();
 
@@ -135,6 +138,9 @@ const profileAvatar = new PopupWithForm ('.popup_type_avatar',
         createUserInfo.setUserInfo(data);
         profileAvatar.close();
       })
+      .finally(() => {
+        profileAvatar.loading(false);
+      });
     }
 )
 
@@ -152,6 +158,9 @@ const addPhotoForm = new PopupWithForm ('.popup_type_img',
           section.addItem(createCard(data));
           addPhotoForm.closeForm() 
         })
+        .finally(() => {
+          addPhotoForm.loading(false);
+        });
   })
 
 addPhotoForm.setEventListeners();
