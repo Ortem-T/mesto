@@ -17,7 +17,9 @@ const imgLink = document.querySelector('#card-img');
 const photoContainer = document.querySelector('.elements__list');
 const formImg = document.querySelector('#form-card');
 const formEdit = document.querySelector('#form-profile');
-const formAvatar = document.querySelector('#form-avatar')
+const formAvatar = document.querySelector('#form-avatar');
+const nameInput = document.querySelector('.form__input_type_name');
+const aboutMeInput = document.querySelector('.form__input_type_about-me');
 const editAvatarButton = document.querySelector('.profile__avatar-button');
 const config = {
   url: 'https://mesto.nomoreparties.co/v1/cohort-42',
@@ -48,6 +50,9 @@ function createCard(card) {
           confirmationPopupDelCard.close();
           newCard.handleDelCard();
         })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        })
       })
     },
     (likes) => {
@@ -58,13 +63,19 @@ function createCard(card) {
         api.deleteLike(card._id)
           .then((data) => {
             newCard.updateLikes(data.likes);
-        });
+          })
+          .catch((err) => {
+            console.log(`Ошибка: ${err}`);
+          });
         newCard.toggleLikeButton(false);
       } else {
         api.addLike(card._id)
           .then((data) => {
             newCard.updateLikes(data.likes);
-        });
+          })
+          .catch((err) => {
+            console.log(`Ошибка: ${err}`);
+          });
         newCard.toggleLikeButton(true);
       }
     }
@@ -78,28 +89,24 @@ confirmationPopupDelCard.setEventListeners();
 
 const api = new Api(config);
 
-let section;
-
-api.getInitialCards()
-  .then(data => {
-    section = new Section ({
-      items: data,
-      renderer: (item) => {
-        photoContainer.append(createCard(item));
-      }
-    }, '.elements__list' 
-    )
-    
-    section.rendererItems();
-});
+const section = new Section ({
+  renderer: (item) => {
+    photoContainer.append(createCard(item));
+  }
+}, '.elements__list' 
+);
 
 let userId
 
-api.getUserInfo()
-  .then((data) => {
-    createUserInfo.setUserInfo(data);
-    userId = data._id;
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+  .then(([initialCards, userData]) => {
+    createUserInfo.setUserInfo(userData);
+    userId = userData._id;
+    section.rendererItems(initialCards);
   })
+  .catch((err) => {
+     console.log(`Ошибка: ${err}`);
+  });
 
 const openPopupImg = new PopupWithImage ('.popup_type_img-open');
 openPopupImg.setEventListeners();
@@ -117,7 +124,9 @@ const profileForm = new PopupWithForm ('.popup_type_profile',
         .then((data) => {
           createUserInfo.setUserInfo(data);
           profileForm.close();
-          profileForm.loading(false);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
         })
         .finally(() => {
           profileForm.loading(false);
@@ -125,9 +134,9 @@ const profileForm = new PopupWithForm ('.popup_type_profile',
     });
 profileForm.setEventListeners();
 
-function editProfile() {
-  createUserInfo.getUserInfo();
-  profileForm.open();
+function editProfile({username, aboutme}) {
+  nameInput.value = username;
+  aboutMeInput.value = aboutme;
 }
 
 const profileAvatar = new PopupWithForm ('.popup_type_avatar', 
@@ -136,7 +145,10 @@ const profileAvatar = new PopupWithForm ('.popup_type_avatar',
       api.editAvatar({avatar: userInfo.avatarUrl})
       .then((data) => {
         createUserInfo.setUserInfo(data);
-        profileAvatar.close();
+        profileAvatar.closeForm();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
       })
       .finally(() => {
         profileAvatar.loading(false);
@@ -158,6 +170,9 @@ const addPhotoForm = new PopupWithForm ('.popup_type_img',
           section.addItem(createCard(data));
           addPhotoForm.closeForm() 
         })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        })
         .finally(() => {
           addPhotoForm.loading(false);
         });
@@ -166,7 +181,12 @@ const addPhotoForm = new PopupWithForm ('.popup_type_img',
 addPhotoForm.setEventListeners();
 
 profileButton.addEventListener('click', () => {
-    editProfile();
+    const info = createUserInfo.getUserInfo();
+    editProfile({
+    username: info.name,
+    aboutme: info.aboutMe
+  });
+    profileForm.open();
 });
 
 photoAddButton.addEventListener('click', () => {
