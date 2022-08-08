@@ -1,7 +1,7 @@
 # Проект: Место
 
 
-![](./src/images/podolsk.jpg)
+![](./src/images/logo.svg)
 
 ## О проекте
 
